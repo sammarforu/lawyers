@@ -45,7 +45,7 @@ class SettingController extends Controller
     {
         	if(Input::get('logo')){
 			$imageName = Input::file('image')->getClientOriginalName();
-			$request->file('image')->move( base_path() .'/public/upload/logo/', $imageName);
+			$request->file('image')->move( public_path() .'/upload/logo/', $imageName);
 			//return $imageName;
 			$alter = SystemLogo::findOrFail($id);
 			$alter->create(array(
@@ -114,7 +114,7 @@ class SettingController extends Controller
 			if(!is_null($request->file('image')))
 			{
 			$imageName = Input::file('image')->getClientOriginalName();
-			$request->file('image')->move( base_path() .'/public/upload/logo/', $imageName);
+			$request->file('image')->move( public_path() .'/upload/logo/', $imageName);
 			//return $imageName;
 			$alter = SystemLogo::findOrFail($id);
 			$alter->update(array(

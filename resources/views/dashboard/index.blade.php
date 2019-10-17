@@ -25,6 +25,14 @@
 </div> -->
 
 <!--  <h1 class="page-title"><b>Dashboard</b></h1> -->
+  <div class="container-fluid">
+@if (Session::has('flash_message'))
+   <div class="alert alert-success alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="margin-right: 4%;">&times;</a>
+      <strong>Success!</strong> {{ Session::get('flash_message') }}
+    </div>
+@endif
+</div>
  <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">

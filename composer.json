@@ -12,6 +12,7 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "zizaco/entrust": "5.2.x-dev",
 		"maatwebsite/excel": "~2.1.0",
+        "maddhatter/laravel-fullcalendar": "^1.2",
         "phpoffice/phpword": "dev-develop"
     },
     "require-dev": {

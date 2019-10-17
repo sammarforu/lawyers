@@ -55,7 +55,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'fifo_db',
+            'database'  => 'lawyers_db',
             'username'  => 'admin',
             'password'  => '',
             'charset'   => 'utf8',

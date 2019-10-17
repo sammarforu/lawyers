@@ -115,6 +115,8 @@
           <ul class="dropdown-menu" role="menu" style="border: 1px solid;">
             <li style="border-bottom: 1px solid grey;"><a href="/client-all-report">GENERAL LEDGER REPORTS</a></li>
              <li style="border-bottom: 1px solid grey;"><a href="/ledger-detail-wise">LEDGER DETAILWISE REPORT</a></li>
+             <li style="border-bottom: 1px solid grey;"><a href="/ledger-all-party">LEDGER ALL PARTIES</a></li>
+             <li style="border-bottom: 1px solid grey;"><a href="/warehouse-report">WAREHOUSE REPORT</a></li>
             <li style="border-bottom: 1px solid grey;"><a href="/sales-report/single-party/create">SALE SUMMARY REPORT</a></li>
             
             <li style="border-bottom: 1px solid grey;"><a href="/purchase-report/create">PURCHASE REPORT</a></li>
@@ -132,13 +134,13 @@
                 <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-family: monospace; color: black;">LC ACTIVITY <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" style="border: 1px solid;">
-            <li style="border-bottom: 1px solid grey;"><a href="/lc-account">LC ACCOUNT
-             <li style="border-bottom: 1px solid grey;"><a href="/lc-information">LC INFORMATION</a></li>
-            <li style="border-bottom: 1px solid grey;"><a href="/lc-expense">LC EXPENSE</a></li>
-            <li style="border-bottom: 1px solid grey;"><a href="/lc-payment">LC PAYMENT</a></li>
-            <li style="border-bottom: 1px solid grey;"><a href="/lc-approved">LC APPROVED</a></li>
-            <li style="border-bottom: 1px solid grey;"><a href="/indendor-info">INDENTOR INFORMATION</a></li>
-            <li style="border-bottom: 1px solid grey;"><a href="/lc-location">LOCATION INFORMATION</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/lc-account/create">LC ACCOUNT
+             <li style="border-bottom: 1px solid grey;"><a href="/lc-info/create">LC INFORMATION</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/lc-expense/create">LC EXPENSE</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/lc-payment/create">LC PAYMENT</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/lc-approved/create">LC APPROVED</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/indentor-info/create">INDENTOR INFORMATION</a></li>
+            <li style="border-bottom: 1px solid grey;"><a href="/lc-location/create">LOCATION INFORMATION</a></li>
             <li style="border-bottom: 1px solid grey;"><a href="/lc-activity-report">LC ACTIVITY REPORT</a></li>
             <li style="border-bottom: 1px solid grey;"><a href="/lc-ledger-report">LC LEDGER REPORT</a></li>
           </ul>

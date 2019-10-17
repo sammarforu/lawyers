@@ -55,14 +55,13 @@ class RoleController extends Controller
 		if($request['role_admin']){
 		$user->roles()->attach(Role::where('name', 'Admin')->first());
 		}
-		
 		return redirect()->back();
     }
 
     public function addUser(Request $request){
         $this->validate($request, [
         'name' => 'required',
-        'email' => 'required',
+        'email' => 'required|unique:users',
         'password' => 'required'
         ]);
         $users = new User();
@@ -108,7 +107,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -119,6 +118,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
 }

@@ -1221,8 +1221,8 @@ ul.most-watched li:last-child {
 .cards-container .card-header {
 	position: relative;
 	clear: both;
-	min-height: 92px;
-	padding: 18px 15px 2px;
+	min-height: 0px;
+	padding: 2px 15px 2px;
 }
 .cards-container .card {
 	margin-bottom: 25px;
@@ -1279,7 +1279,7 @@ ul.most-watched li:last-child {
 }
 .cards-container.grid-view .card-header {
 	border-bottom: 1px solid #2B384C;
-	padding-bottom: 12px;
+	/*padding-bottom: 12px;*/
 }
 .cards-container.grid-view.short-view .card-header {
 	border-color: #00b8ce;

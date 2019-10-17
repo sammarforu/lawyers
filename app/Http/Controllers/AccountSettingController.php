@@ -81,23 +81,23 @@ class AccountSettingController extends Controller
      */
     public function update(Request $request, $id)
     {	
-		$this->validate($request, [
-		'name' => 'required',
-		'email' => 'required',
-		'image' => 'required'
-		]);
+		
         //check which submit was clicked on
         if(Input::get('profile')) {
+            $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email'
+        ]);
              $user = User::findOrFail($id);
-
+             //return $user;
 			if(!is_null($request->file('image')))
             {
-            $imageName = Input::file('image')->getClientOriginalName();
-            $request->file('image')->move( 
-                base_path() .'/public/upload/users/', $imageName);
-             $user->update(array(
-              'image' => $imageName
-            )); 
+                $imageName = Input::file('image')->getClientOriginalName();
+                $request->file('image')->move( 
+                    public_path() .'/upload/users/', $imageName);
+                 $user->update(array(
+                  'image' => $imageName
+                )); 
             }
             $user->update(array(
               'name' => $request->get('name'),
@@ -106,20 +106,33 @@ class AccountSettingController extends Controller
             $user->save();
 
 			Session::flash('flash_message', 'Account successfully Updated!');
-			return redirect('account/'.$user->id.'/edit'); 
+            return redirect('dashboard');
+			//return redirect('account/'.$user->id.'/edit'); 
         } 
 		elseif(Input::get('PasswordSubmit')) 
 		{
-			$currentPassword = Input::get("current_password");
+            $this->validate($request, [
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password|min:6|different:old_password'
+            ]);
+
+			$currentPassword = Input::get("old_password");
+            $NewPassword = Input::get("new_password");
 			$currentUser = User::findOrFail($id);
-			
-			if(Hash::check($currentPassword, $currentUser->password))
-			{
-				$newPassword = Input::get('password');
-				$currentUser->password = bcrypt($newPassword);
-				$currentUser->save();
-			}
-			return redirect('dashboard');			
+
+            if (Hash::check($currentPassword, $currentUser->password)) { 
+               $currentUser->fill([
+                'password' => Hash::make($NewPassword)
+                ])->save();
+
+              Session::flash('flash_message', 'Password Changed successfully!');
+                return redirect('dashboard');
+
+            } else {
+                Session::flash('flash_message', 'Current Password is Incorrect!');
+                return redirect('account/'.$currentUser->id.'/edit');
+            }
+
         }
     }
 

@@ -13,7 +13,7 @@
 				@endif
 			</div>
 			<div class="page-heading clearfix">
-				<h1 class="page-title pull-left">Catagories</h1><a href="catagories/create" class="btn btn-primary btn-sm btn-add" role="button">Add New</a>
+				<h1 class="page-title pull-left">Offices</h1><a href="{{url('catagories/create')}}" class="btn btn-primary btn-sm btn-add" role="button">Add New</a>
 			</div>
 			<!--
 			<div class="btn-group" style="float: right; margin-top: -32px;">
@@ -26,19 +26,19 @@
 			<ol class="breadcrumb breadcrumb-2"> 
 				<li><a href="
 				/dashboard"><i class="fa fa-home"></i>Home</a></li> 
-				<li><a href="/parties">Catagories</a></li> 
-				<li class="parties"><strong>Catagories</strong></li> 
+				<li><a href="{{url('/catagories')}}">Office Management</a></li>
+				<li class="active"><strong>Offices</strong></li> 
 			</ol>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading clearfix">
-							<h3 class="panel-title">Manage Catagories</h3>
-							<ul class="panel-tool-options"> 
+							<h3 class="panel-title">Manage Offices</h3>
+							<!-- <ul class="panel-tool-options"> 
 								<li><a data-rel="collapse" href="#"><i class="icon-down-open"></i></a></li>
 								<li><a data-rel="reload" href="#"><i class="icon-arrows-ccw"></i></a></li>
 								<li><a data-rel="close" href="#"><i class="icon-cancel"></i></a></li>
-							</ul>
+							</ul> -->
 						</div>
 						<div class="panel-body">
 							<div class="table-responsive">
@@ -46,8 +46,8 @@
 									<thead>
 										<tr>
 											<th>Serial #</th>
-										    <th>Catagory Code</th>
-											<th>Catagory Name</th>
+										    <th>Office Code</th>
+											<th>Office Name</th>
 										    <th>Actions</th>
 										</tr>
 									</thead>
@@ -64,7 +64,7 @@
 									<div class="dropdown">
 										<a class="more-link" data-toggle="dropdown" href="#/"><i class="icon-dot-3 ellipsis-icon"></i></a>
 										<ul class="dropdown-menu dropdown-menu-right">
-											<li><a href="/catagories/{{$catagory->id}}/edit">Edit</a></li>
+											<li><a href="{{url('/catagories/')}}/{{$catagory->id}}/edit">Edit</a></li>
 											<li><a href="javascript:checkDelete({{ $catagory->id }}, '/catagories/{{ $catagory->id }}/destroy', '/catagories');">Delete</a> </li>
 										</ul>
 									</div>
@@ -76,8 +76,8 @@
 									<tfoot>
 										<tr>
 											<th>Serial #</th>
-										    <th>Catagory Code</th>
-											<th>Catagory Name</th>
+										    <th>Office Code</th>
+											<th>Office Name</th>
 										    <th>Actions</th>
 										</tr>
 									</tfoot>

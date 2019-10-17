@@ -5,6 +5,7 @@
 $conn = DB::connection()->getPdo();
   $quee=$conn->query('SELECT * from settings')->fetch();
   $que=$conn->query('SELECT * from system_logos')->fetch();
+  $catagories=$conn->query('SELECT * from catagories')->fetch();
 ?>
 <head>
 @yield("head")
@@ -27,225 +28,121 @@ $conn = DB::connection()->getPdo();
   color:#fff;   
 }
 </style>
-<!-- Site favicon -->
-<link rel='shortcut icon' type='image/x-icon' href='/upload/logo/<?php echo $que["image"]; ?>' />
-<!-- /site favicon -->
-
-<!-- Entypo font stylesheet -->
-<link href="/css/entypo.css" rel="stylesheet">
-<!-- /entypo font stylesheet -->
-
-<!-- Font awesome stylesheet -->
-<link href="/css/font-awesome.min.css" rel="stylesheet">
-<link href="/css/bg.css" rel="stylesheet">
-<!-- /font awesome stylesheet -->
-
-<!-- Bootstrap stylesheet min version -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
-<!-- /bootstrap stylesheet min version -->
-
-<!-- Mouldifi core stylesheet -->
-<link href="/css/mouldifi-core.css" rel="stylesheet">
-<!-- /mouldifi core stylesheet -->
-
-<link href="/css/mouldifi-forms.css" rel="stylesheet">
+<link rel='shortcut icon' type='image/x-icon' href="{{url('/upload/logo/<?php echo $que["image"]; ?>')}}" />
+<link href="{{url('/css/entypo.css')}}" rel="stylesheet">
+<link href="{{url('/css/font-awesome.min.css')}}" rel="stylesheet">
+<link href="{{url('/css/bg.css')}}" rel="stylesheet">
+<link href="{{url('/css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{url('/css/mouldifi-core.css')}}" rel="stylesheet">
+<link href="{{url('/css/mouldifi-forms.css')}}" rel="stylesheet">
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/bootstrap-dropdownhover.css">
+<link rel="stylesheet" href="{{url('/css/bootstrap-dropdownhover.css')}}">
 
 <script>
       window.Laravel = <?php echo json_encode([
          'csrfToken' => csrf_token(),
       ]); ?>
 </script>
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-      <script src="js/respond.min.js"></script>
-<![endif]-->
-
-<!--[if lte IE 8]>
-	<script src="js/plugins/flot/excanvas.min.js"></script>
-<![endif]-->
-
-<!------Javascript Confrim-------->
- <script src="/alert/alertify.min.js"></script>
-    <script src="/alert/alertify.js"></script>
-	<link rel="stylesheet" href="/alert/css/alertify.css" />
-	<link rel="stylesheet" href="/alert/css/alertify.css" id="toggleCSS" />
+ <script src="{{url('/alert/alertify.min.js')}}"></script>
+    <script src="{{url('/alert/alertify.js')}}"></script>
+	<link rel="stylesheet" href="{{url('/alert/css/alertify.css')}}" />
+	<link rel="stylesheet" href="{{url('/alert/css/alertify.css')}}" id="toggleCSS" />
 </head>
 <body>
-@include('navbars/jadeedhomeo') 
-
 <div class="page-container">
-	<div class="page-sidebar" style="display:none;">
+	<div class="page-sidebar">
 		<header class="site-header">
-		  <div class="site-logo"><a href="/dashboard"><img src="/upload/logo/<?php echo $que["image"]; ?>" alt="<?php echo $quee["system_name"]; ?>" title="<?php echo $quee["system_name"]; ?>" style="width:200px;"></a></div>
+		  <div class="site-logo"><!-- <a href="{{url('/dashboard')}}"><img src="/upload/logo/<?php echo $que["image"]; ?>" alt="<?php echo $quee["system_name"]; ?>" title="<?php echo $quee["system_name"]; ?>" style="width:200px;"></a> -->
+		  	<a href="{{url('/dashboard')}}"><h4><b><?php echo $quee["system_name"]; ?></b></h4></a>
+		  </div>
 		  <div class="sidebar-collapse hidden-xs"><a class="sidebar-collapse-icon" href="#"><i class="icon-menu"></i></a></div>
 		  <div class="sidebar-mobile-menu visible-xs"><a data-target="#side-nav" data-toggle="collapse" class="mobile-menu-icon" href="#"><i class="icon-menu"></i></a></div>
 		</header>
 		<ul id="side-nav" class="main-menu navbar-collapse collapse">
-			<li><a href="/dashboard"><i class="icon-gauge"></i><span class="title">Dashboard</span></a>
+			<li><a href="{{url('/dashboard')}}"><i class="icon-home"></i><span class="title">DASHBOARD</span></a>
 			</li>
-			<li><a href="/products"><i class="icon-thumbs-up"></i><span class="title">Products</span></a>
+			<li><a href="{{url('/catagories')}}"><i class="icon-gauge"></i><span class="title">OFFICES</span></a>
 			</li>
-			<li class="has-sub"><a href="/purchases"><i class="icon-list"></i><span class="title">Stock & Purchase</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-publish"></i><span class="title">DAILY ROUTINE</span></a>
 				<ul class="nav collapse">
-					<li><a href="/purchases"><span class="title">List Stock & Parchases</span></a></li>
-					<li><a href="/purchases/create"><span class="title">Add Stock & Purchase</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/daily-tasks/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/daily-tasks/create')}}"><span class="title">ADD TASK</span></a></li>
 				</ul>
 			</li>
-			<li class="has-sub"><a href="/sales"><i class="icon-list"></i><span class="title">Sales</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-list"></i><span class="title">NTN</span></a>
 				<ul class="nav collapse">
-					<li><a href="/sales"><span class="title">List Sales</span></a></li>
-					<li><a href="/sales/create"><span class="title">Add Sale</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/ntn/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/ntn/create')}}"><span class="title">ADD NTN</span></a></li>
 				</ul>
 			</li>
-			<li class="has-sub"><a href="#"><i class="icon-layout"></i><span class="title">People</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-heart"></i><span class="title">INCOME TAX</span></a>
 				<ul class="nav collapse">
-					<li><a href="/parties"><span class="title">Chart Of Account</span></a></li>
-					<li><a href="/supplier"><span class="title">Supplier</span></a></li>
-					<li><a href="/publisher"><span class="title">Publishers</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/income-tax/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/income-tax/create')}}"><span class="title">ADD INCOME TAX</span></a></li>
 				</ul>
 			</li>
-			<li class="has-sub"><a href="#"><i class="icon-layout"></i><span class="title">Tax & Discount</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-window"></i><span class="title">SALES TAX</span></a>
 				<ul class="nav collapse">
-					<li><a href="/discount"><span class="title">Discount</span></a></li>
-					<li><a href="/taxes"><span class="title">Tax Rates</span></a></li>
-					<li><a href="/catagories"><span class="title">Product Catagories</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/sales-tax/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/sales-tax/create')}}"><span class="title">ADD SALES TAX</span></a></li>
 				</ul>
 			</li>
-			<li class="has-sub"><a href="#"><i class="icon-layout"></i><span class="title">Accounts</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-globe"></i><span class="title">PRA</span></a>
 				<ul class="nav collapse">
-					<li class="has-sub">
-						<a href="#/"><span class="title">Ledgers</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/ledger"><span class="title">Client Ledgers</span></a></li> 
-							<li><a href="/ledger/suppliers"><span class="title">Supplier/Buyer Ledgers</span></a></li>
-						</ul> 
-					</li>
-					<li class="has-sub">
-						<a href="#/"><span class="title">Vouchers</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/account-head"><span class="title">Head Of Account</span></a></li>
-							<li><a href="/general-voucher"><span class="title">General Voucher</span></a></li>
-							<li><a href="/bank-payments"><span class="title">Bank Payment</span></a></li>
-							<li><a href="/cash-receipts"><span class="title">Cash Receipt</span></a></li>
-							 <li><a href="/cash-payments"><span class="title">Cash Payment</span></a></li>
-							<!--<li><a href="/"><span class="title"></span></a></li> -->
-						</ul> 
-					</li>
-					<li class="has-sub">
-						<a href="#/"><span class="title">Expenses</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/expenses/heads"><span class="title">Expenses Heads</span></a></li> 
-							<li><a href="/expenses"><span class="title">All Expenses</span></a></li>
-						</ul> 
-					</li>
-					<li><a href="/profitloss"><span class="title">Profit Loss Account</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/pra/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/pra/create')}}"><span class="title">ADD PRA</span></a></li>
 				</ul>
 			</li>
-			<!-- <li class="has-sub"><a href="#"><i class="icon-cog"></i><span class="title">Transction</span></a>
+			<li class="has-sub"><a href="#"><i class="icon-network"></i><span class="title">WEALTH STATEMENT</span></a>
 				<ul class="nav collapse">
-					<li><a href="/settings/1/edit"><span class="title">Payment</span></a></li>
-					<li><a href="/account/{{ Auth::user()->id }}/edit"><span class="title">Receipt</span></a></li>
+					@php
+                    foreach($conn->query('select * from catagories order by catagory_name ASC') as $row) { @endphp
+                    <li><a href="{{url('/wealth-statement/')}}/{{$row['id']}}"> {{ $row['catagory_name']}}</a></li>
+                    @php } @endphp
+					<li><a href="{{url('/wealth-statement/create')}}"><span class="title">ADD WEALTH STATEMENT</span></a></li>
 				</ul>
 			</li>
-			<li class="has-sub"><a href="#"><i class="icon-cog"></i><span class="title">Finance</span></a>
+			<!-- <li class="has-sub"><a href="#"><i class="icon-cog"></i><span class="title">SETTINGS</span></a>
 				<ul class="nav collapse">
-					<li><a href=""><span class="title">Account Group</span></a></li>
-					<li><a href=""><span class="title">Ledger</span></a></li>
-					<li><a href=""><span class="title">Expense</span></a></li>
-					<li><a href=""><span class="title">Cash Flow</span></a></li>
-					<li><a href=""><span class="title">Statement</span></a></li>
-					<li><a href="#"><span class="title">Back Account</span></a></li>
+					<li><a href="{{url('/settings/1/edit')}}"><span class="title">SYSTEM SETTINGS</span></a></li>
+					<li><a href="{{url('/account/')}}/{{ Auth::user()->id }}/edit"><span class="title">ACCOUNT SETTINGS</span></a></li>
 				</ul>
 			</li> -->
-			<li class="has-sub"><a href="#"><i class="icon-cog"></i><span class="title">Settings</span></a>
+			<li><a href="{{url('#')}}"><i class="icon-moon"></i><span class="title">CASH RECEIPT</span></a>
+			</li>
+			<li class="has-sub"><a href="#"><i class="icon-cog"></i><span class="title">REPORTS</span></a>
 				<ul class="nav collapse">
-					<li><a href="/settings/1/edit"><span class="title">System Settings</span></a></li>
-					<li><a href="/account/{{ Auth::user()->id }}/edit"><span class="title">Account Settings</span></a></li>
+					<li><a href="{{url('#')}}"><span class="title">DAILY ROUTINE REPORT</span></a></li>
+					<li><a href="{{url('#')}}"><span class="title">SALES TAX REPORT</span></a></li>
+					<li><a href="{{url('#')}}"><span class="title">INCOME TAX REPORT</span></a></li>
 				</ul>
 			</li>
-			<li><a href="/roles"><i class="icon-users"></i><span class="title">User Roles</span></a>
-			</li>
-<!-- 			<li><a href="/ledger"><i class="icon-newspaper"></i><span class="title">Ledger</span></a></li>
-			<li><a href="/repairing"><i class="icon-newspaper"></i><span class="title">Repairing</span></a></li>
-			<li>
-			<a href="/settings/1/edit"><i class="icon-cog"></i><span class="title">General Settings</span></a>
-			<li><a href="/account/{{ Auth::user()->id }}/edit"><i class="icon-cog"></i><span class="title">Account Settings</span></a> -->
-		
-			<li class="has-sub"> 
-				<a href="#/"><i class="icon-flow-tree"></i><span class="title">Reports</span></a> 
-				<ul class="nav collapse"> 
-					<li class="has-sub">
-						<a href="#/"><span class="title">Purchase Register</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/single-party-purchase-report/create" target="__blank"><span class="title">Single Party Purchase</span></a></li> 
-							<li><a href="/all-party-purchase-report/create" target="__blank"><span class="title">All Parties Purchase</span></a></li>
-							<li><a href="#/" target="__blank"><span class="title">Import Purchase</span></a></li>
-							<li><a href="#/" target="__blank"><span class="title">Local Purchase</span></a></li>
-						</ul> 
-					</li>
-
-					<li class="has-sub">
-						<a href="#/"><span class="title">Sale Register</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/sales-report/single-party/create" target="__blank"><span class="title">Single Party Sale</span></a></li> 
-							<li><a href="/sales-report/all-party/create" target="__blank"><span class="title">All Parties Sale</span></a></li>
-							<li><a href="/sample-bills-report" target="__blank"><span class="title">Sample Bills</span></a></li>
-						</ul> 
-					</li>
-					<li class="has-sub">
-						<a href="#/"><span class="title">Stock Register</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="#/" target="__blank"><span class="title">Month Wise Closing</span></a></li> 
-							<li><a href="/stock-report/all-items" target="__blank"><span class="title">All Items</span></a></li>
-							<li><a href="#/" target="__blank"><span class="title">Item Ledger</span></a></li>
-						</ul> 
-					</li>   
-					<li class="has-sub">
-						<a href="#/"><span class="title">Expense Reports</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="/expense-head-report/create" target="__blank"><span class="title">Expense Head Report</span></a></li> 
-							<li><a href="/expense-report" target="__blank"><span class="title">All Expense</span></a></li>
-							<!-- <li><a href="#/" target="__blank"><span class="title">Item Ledger</span></a></li> -->
-						</ul> 
-					</li> 
-					<li><a href="#/"><span class="title">Party Ledger</span></a></li>
-					<li class="has-sub">
-						<a href="#/"><span class="title">Party Information</span></a> 
-						<ul class="nav collapse"> 
-							<li><a href="#/" target="__blank"><span class="title">Address</span></a></li> 
-							<li><a href="#/" target="__blank"><span class="title">No Of Suppliers</span></a></li>
-							<li><a href="#/" target="__blank"><span class="title">No of Buyers</span></a></li>
-						</ul> 
-					</li>
-					<li><a href="#/" target="__blank"><span class="title">Summary Reports</span></a></li> 
-					<li><a href="#/" target="__blank"><span class="title">Outstanding Bills</span></a></li> 
-					<li><a href="/cash-book-report" target="__blank"><span class="title">Cash Book Report</span></a></li>
-				</ul> 
-			</li>
-				<li class="has-sub"><a href="basic-tables.html"><i class="icon-window"></i><span class="title">Graph Reports</span></a>
-				<ul class="nav collapse">
-					<!-- <li><a href="/purchase-report/create"><span class="title">Purchases Report</span></a></li>
-					<li><a href="/sale-report/create"><span class="title">Sale Report</span></a></li> -->
-					<li><a href="/reports" target="_blank"><span class="title">Yearly Sale / Purchase</span></a></li>
-					<li><a href="/reports/month" target="_blank"><span class="title">Monthly Sale / Purchase</span></a></li>
-					<li><a href="/reports/day" target="_blank"><span class="title">Day Book</span></a></li>
-				</ul>
+			<li><a href="{{url('/roles')}}"><i class="icon-users"></i><span class="title">USER ROLES</span></a>
 			</li>
 				</ul> 
 			</li>
 		</ul>		
   </div>
   <div class="main-container">
-  
 		<!-- Main header -->
-<!-- 		<div class="main-header row">
+ 		<div class="main-header row">
 		  <div class="col-sm-6 col-xs-7">
 		  
 			<ul class="user-info pull-left">          
@@ -253,12 +150,13 @@ $conn = DB::connection()->getPdo();
 				src="D:/wamp/www/mouldifi/storage/users/users/eee78d1ff86fa298518be24412aa83ad.jpg">{{ Auth::user()->name }} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				  
-				  <li><a href="/account/{{ Auth::user()->id }}/edit"><i class="icon-user"></i>My profile</a></li>
-				  <li><a href="#/"><i class="icon-mail"></i>Messages</a></li>
-				  <li><a href="#"><i class="icon-clipboard"></i>Tasks</a></li>
+				  <li><a href="{{url('/account/')}}/{{ Auth::user()->id }}/edit"><i class="icon-user"></i>MY PROFILE</a></li>
+				  <li><a href="{{url('/settings/1/edit')}}"><i class="icon-cog"></i>SYSTEM SETTINGS</a></li>
+				  <!-- <li><a href="#/"><i class="icon-mail"></i>Messages</a></li>
+				  <li><a href="{{url('/daily-tasks')}}"><i class="icon-clipboard"></i>Tasks</a></li> -->
 				  <li class="divider"></li>
-				  <li><a href="/settings/1/edit"><i class="icon-cog"></i>System settings</a></li>
-				  <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+				  
+				  <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="icon-logout"></i>LOGOUT</a>
                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form></li>
@@ -354,12 +252,7 @@ $conn = DB::connection()->getPdo();
 				</ul>
 			</div>
 		  </div>
-		</div> -->
-
-
-
-
-
+		</div>
 		<div class="main-content">
 			@yield("contents")
 	  </div>
@@ -367,26 +260,23 @@ $conn = DB::connection()->getPdo();
 </div>
 <center>
 	<footer class="footer-main" style="background: #16202F;"> 
-	&copy; 2018 <strong><?php echo $quee["system_name"]; ?>.</strong> Developed By <a target="_blank" href="http://www.itlife.com.pk/">IT Life</a> 
+	&copy; 2019 <strong><?php echo $quee["system_name"]; ?>.</strong> Developed By <a target="_blank" href="http://www.itlife.com.pk/">IT Life</a> 
 </footer>
 </center>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/plugins/metismenu/jquery.metisMenu.js"></script>
-<script src="/js/plugins/blockui-master/jquery-ui.js"></script>
-<script src="/js/plugins/blockui-master/jquery.blockUI.js"></script>
+<script src="{{url('/js/jquery.min.js')}}"></script>
+<script src="{{url('/js/bootstrap.min.js')}}"></script>
+<script src="{{url('/js/plugins/metismenu/jquery.metisMenu.js')}}"></script>
+<script src="{{url('/js/plugins/blockui-master/jquery-ui.js')}}"></script>
+<script src="{{url('/js/plugins/blockui-master/jquery.blockUI.js')}}"></script>
 <!--Float Charts-->
-<script src="/js/plugins/flot/jquery.flot.min.js"></script>
-<script src="/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="/js/plugins/flot/jquery.flot.resize.min.js"></script>
-<script src="/js/plugins/flot/jquery.flot.selection.min.js"></script>        
-<script src="/js/plugins/flot/jquery.flot.pie.min.js"></script>
-<script src="/js/plugins/flot/jquery.flot.time.min.js"></script>
-<script src="/js/functions.js"></script>
+<script src="{{url('/js/plugins/flot/jquery.flot.min.js')}}"></script>
+<script src="{{url('/js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
+<script src="{{url('/js/plugins/flot/jquery.flot.resize.min.js')}}"></script>
+<script src="{{url('/js/plugins/flot/jquery.flot.selection.min.js')}}"></script>        
+<script src="{{url('/js/plugins/flot/jquery.flot.pie.min.js')}}"></script>
+<script src="{{url('/js/plugins/flot/jquery.flot.time.min.js')}}"></script>
+<script src="{{url('/js/functions.js')}}"></script>
 
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script> -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -397,8 +287,8 @@ $conn = DB::connection()->getPdo();
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!--ChartJs-->
-<script src="/js/plugins/chartjs/Chart.min.js"></script>
-<script src="/js/bootstrap-dropdownhover.js"></script>
+<script src="{{url('/js/plugins/chartjs/Chart.min.js')}}"></script>
+<script src="{{url('/js/bootstrap-dropdownhover.js')}}"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];

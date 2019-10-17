@@ -20,11 +20,11 @@
 					<div class="panel panel-default">
 						<div class="panel-heading clearfix">
 							<h3 class="panel-title">Add Account Head</h3>
-							<ul class="panel-tool-options"> 
+							<!-- <ul class="panel-tool-options"> 
 								<li><a data-rel="collapse" href="#"><i class="icon-down-open"></i></a></li>
 								<li><a data-rel="reload" href="#"><i class="icon-arrows-ccw"></i></a></li>
 								<li><a data-rel="close" href="#"><i class="icon-cancel"></i></a></li>
-							</ul>
+							</ul> -->
 						</div>
 						<div class="panel-body">
 							@include('errors.validation')

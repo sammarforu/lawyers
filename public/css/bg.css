@@ -65,3 +65,34 @@
 #tabledata{
 	text-align:center;
 }
+
+#detailcontent{
+	color:white;
+	text-align:center;
+}
+
+#detailstatement{
+	color:white;
+}
+
+#detailheader{
+	color:white;
+}
+
+#createdby{
+	color:red;
+}
+
+.btn {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: green;
+}
